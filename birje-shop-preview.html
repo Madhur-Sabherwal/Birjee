@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The Birje Sky Shop — Preview</title>
+<style>
+  :root{
+    --ink:#2B2B49; --bg:#F3F1FF; --card:#FFFFFF; --muted:#6B6B86;
+    --accent:#FF8FB6; --accent2:#7E96FF; --line:#ECE9FB;
+    --body:#74AAFF; --bodyDark:#4678DC; --belly:#D6E6FF; --beanie:#7E96FF;
+    --beanieDark:#5A6FE0; --brim:#FF96B9; --cheek:#FFA8C4; --propA:#FFD25A; --propB:#78DCAA;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:
+        radial-gradient(120% 80% at 50% -10%, #DCE6FF 0%, var(--bg) 55%) fixed;
+        color:var(--ink);font-family:'Baloo 2','Segoe UI Rounded','SF Pro Rounded',system-ui,'Trebuchet MS',sans-serif;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 18px 70px;}
+  .preview-note{background:#FFF4D6;color:#7a5a00;text-align:center;font-size:13px;
+        padding:8px 12px;border-bottom:1px solid #f0e2b0;}
+  header.hero{text-align:center;padding:30px 16px 8px;}
+  .logo-row{display:flex;align-items:center;justify-content:center;gap:14px;}
+  .logo-row .birje{width:74px;height:74px;}
+  h1{font-size:40px;margin:6px 0 2px;letter-spacing:.5px;
+     background:linear-gradient(180deg,#fff 0%,#cdbfff 130%);-webkit-background-clip:text;background-clip:text;color:#8a7bd6;
+     text-shadow:0 2px 0 #fff,0 6px 14px rgba(120,100,220,.25);}
+  .tag{color:var(--accent2);font-weight:700;font-size:16px;margin:0 0 4px;}
+  .sub{color:var(--muted);font-size:14px;max-width:560px;margin:8px auto 0;}
+  nav.chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:18px 0 6px;}
+  .chip{background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-weight:700;
+        font-size:13px;color:var(--ink);cursor:pointer;}
+  .chip.on{background:var(--accent2);color:#fff;border-color:var(--accent2);}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:18px;margin-top:22px;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden;
+        box-shadow:0 8px 22px rgba(120,110,200,.10);display:flex;flex-direction:column;}
+  .stage{position:relative;height:230px;display:flex;align-items:center;justify-content:center;
+         background:radial-gradient(80% 80% at 50% 30%,#fbfaff,#eef0ff);}
+  .meta{padding:13px 15px 16px;}
+  .pname{font-weight:800;font-size:15px;margin:0;}
+  .pdesc{color:var(--muted);font-size:12.5px;margin:5px 0 9px;line-height:1.35;}
+  .row{display:flex;align-items:center;justify-content:space-between;}
+  .price{font-weight:800;color:var(--accent);font-size:16px;}
+  .buy{background:var(--accent2);color:#fff;border:none;border-radius:999px;padding:7px 14px;font-weight:800;
+       font-size:12.5px;cursor:pointer;font-family:inherit;}
+  .swatches{display:flex;gap:6px;margin-top:10px;}
+  .sw{width:18px;height:18px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px var(--line);cursor:pointer;}
+  .birje{display:block;}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:40px;}
+  footer a{color:var(--accent2);font-weight:700;text-decoration:none;}
+
+  /* ---------- product mockups (pure CSS) ---------- */
+  .tee{position:relative;width:170px;height:170px;background:var(--garment,#fff);
+       clip-path:polygon(28% 8%,38% 2%,62% 2%,72% 8%,98% 22%,88% 42%,76% 34%,76% 100%,24% 100%,24% 34%,12% 42%,2% 22%);
+       box-shadow:inset 0 -10px 20px rgba(0,0,0,.06);border-radius:6px;}
+  .hoodie{position:relative;width:172px;height:170px;background:var(--garment,#fff);
+       clip-path:polygon(30% 12%,40% 4%,60% 4%,70% 12%,98% 24%,89% 44%,78% 36%,78% 100%,22% 100%,22% 36%,11% 44%,2% 24%);
+       box-shadow:inset 0 -10px 20px rgba(0,0,0,.06);border-radius:6px;}
+  .hoodie::before{content:"";position:absolute;left:34%;top:2%;width:32%;height:18%;
+       background:rgba(0,0,0,.10);border-radius:0 0 40% 40%;}
+  .hoodie::after{content:"";position:absolute;left:30%;bottom:8%;width:40%;height:14%;
+       border:2px solid rgba(0,0,0,.10);border-radius:8px;}
+  .mug{position:relative;width:128px;height:118px;background:var(--garment,#fff);border-radius:14px 14px 16px 16px;
+       box-shadow:inset -14px 0 22px rgba(0,0,0,.06);}
+  .mug::after{content:"";position:absolute;right:-34px;top:24px;width:40px;height:58px;
+       border:13px solid var(--garment,#fff);border-left:none;border-radius:0 28px 28px 0;}
+  .cushion{position:relative;width:172px;height:172px;background:var(--garment,#EAE6Fb);border-radius:22px;
+       box-shadow:inset 0 0 30px rgba(0,0,0,.07);overflow:hidden;}
+  .cushion .pattern{position:absolute;inset:0;display:grid;grid-template-columns:repeat(3,1fr);
+       grid-template-rows:repeat(3,1fr);place-items:center;opacity:.96;}
+  .cushion .pattern .birje{width:42px;height:42px;}
+  .cushion .pattern .star{width:14px;height:14px;}
+  .tote{position:relative;width:150px;height:158px;background:var(--garment,#F4EFD8);border-radius:6px 6px 10px 10px;
+       box-shadow:inset 0 -10px 20px rgba(0,0,0,.05);}
+  .tote::before,.tote::after{content:"";position:absolute;top:-34px;width:40px;height:54px;
+       border:7px solid var(--garment,#F4EFD8);border-bottom:none;border-radius:30px 30px 0 0;}
+  .tote::before{left:24px;} .tote::after{right:24px;}
+  .sticker{position:relative;width:150px;height:150px;background:#fff;border-radius:24px;
+       box-shadow:0 6px 14px rgba(0,0,0,.12);display:flex;align-items:center;justify-content:center;
+       border:4px solid #fff;outline:3px solid #fff;}
+  .poster{position:relative;width:128px;height:168px;background:#fff;border:8px solid #fff;
+       box-shadow:0 8px 18px rgba(0,0,0,.16);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;}
+  .poster .ptitle{font-weight:800;color:var(--accent2);font-size:13px;}
+  .phone{position:relative;width:104px;height:178px;background:var(--garment,#222);border-radius:22px;
+       box-shadow:inset 0 0 0 3px rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;}
+  .phone::before{content:"";position:absolute;top:9px;left:50%;transform:translateX(-50%);
+       width:34px;height:7px;background:rgba(0,0,0,.5);border-radius:6px;}
+  .ondesign{position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);}
+  .design-tee{width:84px;height:84px;}
+  .design-mug{width:78px;height:78px;}
+  .design-tote{width:92px;height:92px;}
+  .design-sticker{width:108px;height:108px;}
+  .design-poster{width:84px;height:84px;}
+  .design-phone{width:66px;height:66px;}
+
+  /* colorways */
+  .skin-classic{--body:#74AAFF;--bodyDark:#4678DC;--belly:#D6E6FF;--beanie:#7E96FF;--beanieDark:#5A6FE0;--brim:#FF96B9;--cheek:#FFA8C4;}
+  .skin-bubblegum{--body:#FF9ECF;--bodyDark:#E86AA8;--belly:#FFE3F1;--beanie:#FFB0DA;--beanieDark:#E86AA8;--brim:#7ED0FF;--cheek:#FF7FB0;}
+  .skin-matcha{--body:#9BD67E;--bodyDark:#6FB050;--belly:#EAF7DD;--beanie:#B6E29A;--beanieDark:#6FB050;--brim:#FFD25A;--cheek:#FFA8C4;}
+  .skin-lavender{--body:#B79CF0;--bodyDark:#8E6FD6;--belly:#EDE4FF;--beanie:#C9B4F7;--beanieDark:#8E6FD6;--brim:#FFC2E2;--cheek:#FFA8C4;}
+  .skin-sunset{--body:#FFB07A;--bodyDark:#E8814A;--belly:#FFE8D6;--beanie:#FFC59A;--beanieDark:#E8814A;--brim:#FF8FA3;--cheek:#FF8FA3;}
+  .skin-galaxy{--body:#6E7BE0;--bodyDark:#4A56B8;--belly:#C9CFF5;--beanie:#8A95EC;--beanieDark:#4A56B8;--brim:#B388FF;--cheek:#FFA8C4;}
+</style>
+</head>
+<body>
+
+<!-- ===== Reusable Birje SVG symbol (scales to any size, prints crisp) ===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="birje" viewBox="0 0 240 240">
+    <ellipse cx="98" cy="206" rx="15" ry="8" fill="var(--bodyDark,#4678DC)"/>
+    <ellipse cx="142" cy="206" rx="15" ry="8" fill="var(--bodyDark,#4678DC)"/>
+    <circle cx="120" cy="138" r="72" fill="var(--body,#74AAFF)" stroke="var(--bodyDark,#4678DC)" stroke-width="4"/>
+    <ellipse cx="120" cy="160" rx="40" ry="34" fill="var(--belly,#D6E6FF)"/>
+    <ellipse cx="76" cy="150" rx="12" ry="9" fill="var(--cheek,#FFA8C4)"/>
+    <ellipse cx="164" cy="150" rx="12" ry="9" fill="var(--cheek,#FFA8C4)"/>
+    <ellipse cx="98" cy="132" rx="11" ry="13" fill="var(--ink,#2B2B49)"/>
+    <ellipse cx="142" cy="132" rx="11" ry="13" fill="var(--ink,#2B2B49)"/>
+    <circle cx="102" cy="127" r="4" fill="#fff"/>
+    <circle cx="146" cy="127" r="4" fill="#fff"/>
+    <path d="M106 150 Q120 162 134 150" fill="none" stroke="var(--ink,#2B2B49)" stroke-width="4" stroke-linecap="round"/>
+    <path d="M46.6 90 A73.4 60 0 0 1 193.4 90 Z" fill="var(--beanie,#7E96FF)"/>
+    <rect x="44" y="83" width="152" height="15" rx="7" fill="var(--brim,#FF96B9)"/>
+    <rect x="116" y="36" width="8" height="30" rx="4" fill="var(--beanieDark,#5A6FE0)"/>
+    <ellipse cx="102" cy="40" rx="20" ry="6" fill="var(--propA,#FFD25A)"/>
+    <ellipse cx="138" cy="40" rx="20" ry="6" fill="var(--propB,#78DCAA)"/>
+    <circle cx="120" cy="40" r="6" fill="var(--beanieDark,#5A6FE0)"/>
+  </symbol>
+  <symbol id="star" viewBox="0 0 24 24">
+    <path d="M12 1 L14.6 8.4 L22 9.2 L16.4 14.2 L18.2 22 L12 17.8 L5.8 22 L7.6 14.2 L2 9.2 L9.4 8.4 Z" fill="#FFD25A" stroke="#E8B53A" stroke-width="1"/>
+  </symbol>
+</svg>
+
+<div class="preview-note">✨ Design &amp; storefront preview — this is a mockup of the Birje merch line, not a live store yet. See the setup guide to make it real.</div>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="logo-row">
+      <svg class="birje skin-classic"><use href="#birje"/></svg>
+      <div>
+        <h1>The Birje Sky Shop</h1>
+        <p class="tag">Hop, Flap, Sparkle! — wear the cloud.</p>
+      </div>
+    </div>
+    <p class="sub">Cozy character merch starring Birje, the little propeller-beanie sky-flyer. Soft tees, cuddly cushions, and sparkly extras — printed on demand, shipped worldwide.</p>
+    <nav class="chips">
+      <span class="chip on">All</span><span class="chip">Apparel</span>
+      <span class="chip">Home</span><span class="chip">Accessories</span><span class="chip">Stickers &amp; Art</span>
+    </nav>
+  </header>
+
+  <div class="grid" id="grid"></div>
+
+  <footer>
+    <p>The Birje Sky Shop · original characters &amp; art · printed on demand.<br>
+    ☕ Support the maker: <a href="https://buymeacoffee.com/MaadhurSabherwal" target="_blank" rel="noopener">buymeacoffee.com/MaadhurSabherwal</a></p>
+  </footer>
+</div>
+
+<script>
+const SKINS=["classic","bubblegum","matcha","lavender","sunset","galaxy"];
+const SWATCH={classic:"#74AAFF",bubblegum:"#FF9ECF",matcha:"#9BD67E",lavender:"#B79CF0",sunset:"#FFB07A",galaxy:"#6E7BE0"};
+
+// product definitions
+const PRODUCTS=[
+ {type:"tee",name:"Birje Classic Tee",desc:"The original sky-flyer, front and center on a soft cotton tee.",price:26,garment:"#FFFFFF",design:"birje",skins:true,cat:"Apparel"},
+ {type:"hoodie",name:"Sparkle Hoodie",desc:"Cozy pullover with Birje mid-flap. Perfect for cloud-watching.",price:46,garment:"#EDEAFF",design:"birje",skins:true,cat:"Apparel"},
+ {type:"mug",name:"Good Morning Birje Mug",desc:"11oz ceramic. A cheerful face to start the day with.",price:16,garment:"#FFFFFF",design:"birje",skins:false,cat:"Home"},
+ {type:"cushion",name:"Cloud Sky Cushion Cover",desc:"18×18in. A little flock of Birjes drifting across your couch.",price:32,garment:"#E7ECFF",design:"pattern",skins:false,cat:"Home"},
+ {type:"tote",name:"Sky Errands Tote",desc:"Sturdy canvas tote — carry your day under a friendly sky.",price:22,garment:"#F4EFD8",design:"birje",skins:false,cat:"Accessories"},
+ {type:"phone",name:"Birje Phone Case",desc:"Slim case with Birje floating on the back. Drop-friendly cuteness.",price:20,garment:"#2B2B49",design:"birje",skins:true,cat:"Accessories"},
+ {type:"sticker",name:"Sparkle Sticker Pack",desc:"Die-cut vinyl set — Birje in every colorway, plus stars.",price:7,garment:"#FFFFFF",design:"birje",skins:false,cat:"Stickers & Art"},
+ {type:"poster",name:"Hop, Flap, Sparkle! Print",desc:"Matte art print. Birje and the tagline for your wall.",price:20,garment:"#FFFFFF",design:"poster",skins:false,cat:"Stickers & Art"},
+];
+
+function birjeSVG(skinClass, cls){ return `<svg class="birje ${skinClass} ${cls}"><use href="#birje"/></svg>`; }
+function starSVG(cls){ return `<svg class="${cls}"><use href="#star"/></svg>`; }
+
+function mockup(p, skin){
+  const sk="skin-"+skin;
+  if(p.type==="cushion"){
+    let cells="";
+    const order=["classic","bubblegum","matcha","sunset","lavender","galaxy"];
+    for(let i=0;i<9;i++){
+      if(i===4){ cells+=`<div>${starSVG('star')}</div>`; }
+      else { cells+=`<div>${birjeSVG('skin-'+order[i%order.length],'')}</div>`; }
+    }
+    return `<div class="cushion" style="--garment:${p.garment}"><div class="pattern">${cells}</div></div>`;
+  }
+  if(p.type==="poster"){
+    return `<div class="poster"><div class="ptitle">BIRJE</div>${birjeSVG(sk,'design-poster')}<div style="font-size:10px;color:#9a93b8;font-weight:700">HOP · FLAP · SPARKLE</div></div>`;
+  }
+  if(p.type==="sticker"){
+    return `<div class="sticker">${birjeSVG(sk,'design-sticker')}</div>`;
+  }
+  if(p.type==="mug"){
+    return `<div class="mug" style="--garment:${p.garment}">${birjeSVG(sk,'ondesign design-mug')}</div>`;
+  }
+  if(p.type==="tote"){
+    return `<div class="tote" style="--garment:${p.garment}">${birjeSVG(sk,'ondesign design-tote')}</div>`;
+  }
+  if(p.type==="phone"){
+    return `<div class="phone" style="--garment:${p.garment}">${birjeSVG(sk,'ondesign design-phone')}</div>`;
+  }
+  // tee / hoodie
+  return `<div class="${p.type}" style="--garment:${p.garment}">${birjeSVG(sk,'ondesign design-tee')}</div>`;
+}
+
+function render(filter){
+  const grid=document.getElementById("grid");
+  grid.innerHTML="";
+  PRODUCTS.filter(p=>!filter||filter==="All"||p.cat===filter).forEach((p,idx)=>{
+    const state={skin:"classic"};
+    const card=document.createElement("div"); card.className="card";
+    const stage=document.createElement("div"); stage.className="stage";
+    stage.innerHTML=mockup(p,state.skin);
+    const meta=document.createElement("div"); meta.className="meta";
+    let sw="";
+    if(p.skins){ sw=`<div class="swatches">`+SKINS.map(s=>`<span class="sw" data-s="${s}" style="background:${SWATCH[s]}"></span>`).join("")+`</div>`; }
+    meta.innerHTML=`<p class="pname">${p.name}</p><p class="pdesc">${p.desc}</p>
+      <div class="row"><span class="price">$${p.price.toFixed(2)}</span><button class="buy">Add to cart</button></div>${sw}`;
+    card.appendChild(stage); card.appendChild(meta); grid.appendChild(card);
+    if(p.skins){
+      meta.querySelectorAll(".sw").forEach(el=>{
+        el.onclick=()=>{ state.skin=el.dataset.s; stage.innerHTML=mockup(p,state.skin); };
+      });
+    }
+    meta.querySelector(".buy").onclick=()=>{
+      const b=meta.querySelector(".buy"); b.textContent="Added ✨"; setTimeout(()=>b.textContent="Add to cart",900);
+    };
+  });
+}
+render("All");
+document.querySelectorAll(".chip").forEach(c=>{
+  c.onclick=()=>{ document.querySelectorAll(".chip").forEach(x=>x.classList.remove("on")); c.classList.add("on"); render(c.textContent.trim()); };
+});
+</script>
+</body>
+</html>
